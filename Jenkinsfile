@@ -34,16 +34,16 @@ pipeline{
 				    sh "mvn failsafe:integrationtest failsafe:verify"
 			}
 		}
-	post{
-		always{
-			echo 'Awesome'
-		}
-		success{
-			echo 'I run when your Successful'
-		}
-		failure{
-			echo 'failure'
-		}
+	// post{
+	// 	always{
+	// 		echo 'Awesome'
+	// 	}
+	// 	success{
+	// 		echo 'I run when your Successful'
+	// 	}
+	// 	failure{
+	// 		echo 'failure'
+	// 	}
 	}
-}
-}
+// }
+// }
