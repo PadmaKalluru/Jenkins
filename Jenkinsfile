@@ -10,7 +10,7 @@ pipeline{
 		stage('Checkout'){
 			steps{
 				// sh 'mvn --version'
-				echo 'Build'
+				echo 'Jenkins Testing'
 				echo "$PATH"
 				echo "BUILD_ID - $env.BUILD_ID"
 				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
