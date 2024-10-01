@@ -24,11 +24,11 @@ pipeline{
 	// 			sh "mvn clean compile"
 	// 		}
 	// 	}
-		stage('Test'){
-	 	       steps{
-			       echo "mvn Test"
-	 }
-	 	}
+	//	stage('Test'){
+	 //	       steps{
+	//		       echo "mvn Test"
+	 //}
+	 //	}
 	// 	stage('Integration Test'){
 	// 	        steps{
 	// 			    sh "mvn failsafe:integrationtest failsafe:verify"
