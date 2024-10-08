@@ -1,63 +1,21 @@
-pipeline{
-	agent any
-	//agent{}
-	environment{
-		dockerHome = tool 'myDocker'
-		mavenHome = tool 'myMaven'
-		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
-		
-	}
-	stages{
-		stage('Checkout'){
-			steps{
-				sh 'mvn --version'
-				sh 'docker version'
-				echo 'Build'
-				echo "$PATH"
-				echo "BUILD_ID - $env.BUILD_ID"
-				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
-				echo "BUILD_URL - $env.BUILD_URL"
-				echo "JOB_NAME - $env.JOB_NAME"
-				echo "BUILD_TAG - $env.BUILD_TAG"
-			}
-		}
-		stage('Compile'){
-			steps{
-				sh "mvn clean compile"
-			}
-		}
-		stage('Package'){
-		        steps{
-				    sh 'mvn package -DskipTests'
-			}
-		}
-		stage('Build Docker Image'){
-		       steps{
-				script{
-					dockerImage=docker.build("padmakalluru/jenkinsnew":$env.BUILD_ID)
-				}
-			   }
-		}
-		stage('Push Docker Image'){
-			steps{
-				script{
-					docker.withRegistry('','dockerhub')
-					dockerImage.push();
-					dockerImage.push('latest');
-				}
-			}
-		}
-	}
-	post{
-		always{
-			echo 'Awesome'
-		}
-		success{
-			echo 'I run when your Successful'
-		}
-		failure{
-			echo 'failure'
-		}
-	}
+pipeline {
+  agent any
+  tools {
+    // a bit ugly because there is no `@Symbol` annotation for the DockerTool
+    // see the discussion about this in PR 77 and PR 52: 
+    // https://github.com/jenkinsci/docker-commons-plugin/pull/77#discussion_r280910822
+    // https://github.com/jenkinsci/docker-commons-plugin/pull/52
+    'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+  }
+  environment {
+    DOCKER_CERT_PATH = credentials('id-for-a-docker-cred')
+  }
+  stages {
+    stage('foo') {
+      steps {
+        sh "docker version" // DOCKER_CERT_PATH is automatically picked up by the Docker client
+      }
+    }
+  }
 }
 
