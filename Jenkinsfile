@@ -22,10 +22,7 @@ pipeline{
 			steps{
 				sh "mvn clean compile"
 			}
-		}
-		
-			     
-	}
+		}	
 		stage('Package'){
 		        steps{
 				    sh 'mvn package -DskipTests'
@@ -47,6 +44,7 @@ pipeline{
 				}
 			}
 		}
+	}
 	post{
 		always{
 			echo 'Awesome'
