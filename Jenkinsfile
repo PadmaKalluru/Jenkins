@@ -5,7 +5,6 @@ pipeline{
 		//mavenHome = tool 'myMaven'
 		//PATH = "$mavenHome/bin:$PATH"
 		
-	}
 	stages{
 		stage('Checkout'){
 			steps{
@@ -59,4 +58,4 @@ pipeline{
 			echo 'failure'
 		}
 	}
-
+}
