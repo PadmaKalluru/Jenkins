@@ -8,7 +8,7 @@ pipeline{
 	stages{
 		stage('Checkout'){
 			steps{
-				sh 'mvn --version'
+				//sh 'mvn --version'
 				echo 'Build'
 				echo "$PATH"
 				echo "BUILD_ID - $env.BUILD_ID"
@@ -18,11 +18,11 @@ pipeline{
 				echo "BUILD_TAG - $env.BUILD_TAG"
 			}
 		}
-		stage('Compile'){
-			steps{
-				sh "mvn clean compile"
-			}
-		}	
+		//stage('Compile'){
+		//	steps{
+		//		sh "mvn clean compile"
+		//	}
+		//}	
 		stage('Package'){
 		        steps{
 				    sh 'mvn package -DskipTests'
